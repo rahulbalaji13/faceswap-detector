@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Face authenticity demo</title>
+<style>
+  :root {
+    --side: #0e1b26; --side-2: #15293a; --side-line: #2b4357; --side-text: #e8eef3; --side-dim: #9fb3c3;
+    --paper: #eef1f4; --card: #ffffff; --ink: #14202b; --steel: #5b6b7a; --line: #d5dde4;
+    --scan: #19a3b4; --scan-ink: #06252b; --fake: #b3123f; --real: #1f7a3d;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { font-family: system-ui, "Segoe UI", sans-serif; color: var(--ink); background: var(--paper); }
+  body { margin: 0; }
+  button { font: inherit; cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--scan); outline-offset: 2px; }
+
+  .app { display: grid; grid-template-columns: 330px 1fr; min-height: 100vh; }
+
+  /* ---------- sidebar ---------- */
+  .side { background: var(--side); color: var(--side-text); padding: 28px 22px; display: flex; flex-direction: column;
+          gap: 22px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .brand { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
+  .brand i { width: 14px; height: 14px; border-radius: 50%; background: var(--scan); box-shadow: 0 0 0 4px rgba(25,163,180,.25); }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--side-2); border-radius: 10px; padding: 4px; gap: 4px; }
+  .tabs button { border: 0; background: transparent; color: var(--side-dim); padding: 10px 8px; border-radius: 7px; font-weight: 600; }
+  .tabs button[aria-selected="true"] { background: var(--scan); color: var(--scan-ink); }
+
+  .drop { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 22px 14px;
+          border: 2px dashed var(--side-line); border-radius: 12px; background: var(--side-2); cursor: pointer;
+          transition: border-color .15s; }
+  .drop:hover, .drop.over, .drop:focus-within { border-color: var(--scan); }
+  .drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .drop strong { font-size: 1.05rem; }
+  .drop span { color: var(--side-dim); font-size: .9rem; }
+  .drop em { font-style: normal; color: var(--scan); font-weight: 600; word-break: break-all; font-size: .9rem; }
+  .drop img { width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 6px; }
+  .primary { width: 100%; margin-top: 14px; border: 0; border-radius: 10px; padding: 13px 16px; font-weight: 700;
+             background: var(--scan); color: var(--scan-ink); }
+  .ghost { width: 100%; margin-top: 10px; border: 1px solid var(--side-line); background: transparent; color: var(--side-text);
+           border-radius: 10px; padding: 12px 16px; font-weight: 600; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .note { color: var(--side-dim); font-size: .9rem; line-height: 1.5; margin: 0; }
+  .side-foot { margin-top: auto; color: var(--side-dim); font-size: .85rem; line-height: 1.5; border-top: 1px solid var(--side-line); padding-top: 16px; }
+
+  /* ---------- main ---------- */
+  .main { padding: 32px clamp(18px, 4vw, 48px) 64px; max-width: 1020px; width: 100%; }
+  .main h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 6px; letter-spacing: -0.02em; line-height: 1.1; }
+  .sub { color: var(--steel); margin: 0 0 24px; max-width: 60ch; line-height: 1.5; }
+  .quality-notice { padding: 14px 16px; margin: 0 0 18px; border: 1px solid #d6a64f; border-radius: 10px;
+                    background: #fff8e8; color: #674b16; line-height: 1.45; font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .stat small { display: block; color: var(--steel); font-size: .85rem; margin-bottom: 6px; }
+  .stat b { display: block; font-size: 2rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .stat b.txt { font-size: 1.05rem; letter-spacing: 0; line-height: 1.35; font-weight: 600; }
+
+  #status { min-height: 1.4em; margin: 0 0 12px; color: var(--steel); }
+  #status.error { color: var(--fake); font-weight: 600; }
+
+  .empty { text-align: center; color: var(--steel); padding: 40px 10px; line-height: 1.6; }
+  .empty b { display: block; color: var(--ink); font-size: 1.15rem; margin-bottom: 4px; }
+
+  .verdict { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .verdict.fake { color: var(--fake); } .verdict.real { color: var(--real); } .verdict.uncertain { color: var(--steel); }
+  .detail { color: var(--steel); margin: 0 0 16px; }
+  .meter { height: 10px; background: var(--paper); border-radius: 99px; overflow: hidden; margin-bottom: 22px; }
+  .meter i { display: block; height: 100%; width: 0; background: var(--fake); transition: width .5s ease; }
+  .meter i.uncertain { background: var(--steel); }
+  .timeline-box { margin: 0 0 22px; }
+  .timeline-title { margin: 0 0 6px; font-size: .9rem; font-weight: 600; color: var(--steel); }
+  #timeline { display: block; width: 100%; height: 170px; }
+
+  /* ---------- LFAM Card ---------- */
+  .lfam-card { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 16px 18px; margin: 0 0 22px; }
+  .lfam-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .lfam-title { font-weight: 700; font-size: 1.02rem; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .lfam-badge { background: #0284c7; color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .05em; }
+  .lfam-desc { color: var(--steel); font-size: .88rem; line-height: 1.45; margin: 0 0 14px; }
+  .lfam-bars { display: flex; flex-direction: column; gap: 10px; }
+  .lfam-row { display: flex; flex-direction: column; gap: 4px; }
+  .lfam-meta { display: flex; justify-content: space-between; font-size: .88rem; font-weight: 600; }
+  .lfam-track { height: 8px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+  .lfam-fill { height: 100%; border-radius: 99px; transition: width .6s ease; }
+  .lfam-spatial { background: #3b82f6; }
+  .lfam-fft { background: #8b5cf6; }
+  .lfam-srm { background: #06b6d4; }
+
+  .compare { position: relative; width: 100%; max-width: 460px; aspect-ratio: 1; margin: 0 auto; border-radius: 10px;
+             overflow: hidden; background: #000; user-select: none; }
+  .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #heatImg { clip-path: inset(0 50% 0 0); }
+  .handle { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; left: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.35); pointer-events: none; }
+  .slider { display: block; width: 100%; max-width: 460px; margin: 14px auto 0; accent-color: var(--scan); }
+  .hint { text-align: center; color: var(--steel); font-size: .92rem; margin: 8px auto 0; max-width: 52ch; line-height: 1.5; }
+
+  .cam { position: relative; width: 100%; max-width: 640px; margin: 0 auto 16px; border-radius: 10px; overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
+  .cam video, .cam canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+
+  h2 { margin: 0 0 4px; font-size: 1.25rem; }
+  .perf p { margin: 0 0 14px; color: var(--steel); line-height: 1.5; }
+  .tbl { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); font-size: .95rem; }
+  th { color: var(--steel); font-weight: 500; }
+  td.num { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .perf { margin-top: 18px; }
+
+  @media (max-width: 860px) {
+    .app { grid-template-columns: 1fr; }
+    .side { position: static; height: auto; }
+    .stats { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .meter i { transition: none; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side">
+    <div class="brand"><i></i>Face authenticity demo</div>
+
+    <div class="tabs" role="tablist" aria-label="Input type">
+      <button role="tab" id="tabUpload" aria-selected="true">Upload</button>
+      <button role="tab" id="tabLive" aria-selected="false">Live camera</button>
+    </div>
+
+    <section id="panelUpload">
+      <label class="drop" id="drop">
+        <input type="file" id="file" accept="image/*,video/*">
+        <img id="preview" alt="Selected photo" hidden>
+        <strong>Choose a photo or video</strong>
+        <span>or drop it here. Video up to 100 MB.</span>
+        <em id="fileName"></em>
+      </label>
+      <button class="primary" id="go" disabled>Analyze file</button>
+    </section>
+
+    <section id="panelLive" hidden>
+      <p class="note">Camera frames are sent only to this app on your computer. Look at the camera and keep your face in view.</p>
+      <button class="primary" id="startCam">Start camera</button>
+      <button class="ghost" id="stopCam" disabled>Stop camera</button>
+    </section>
+
+    <div class="side-foot">Webcam quality, lighting, and source datasets affect predictions. Live results are not guaranteed and may be marked unverified.</div>
+  </aside>
+
+  <main class="main">
+    <h1>Face authenticity demo</h1>
+    <p class="sub">Research prototype for analyzing faces in images, videos, and a live camera. Predictions are not proof of authenticity.</p>
+    <div class="quality-notice" id="qualityNotice" role="status">Checking held-out test results…</div>
+
+    <section class="stats" aria-label="Model accuracy">
+      <div class="stat"><small>Held-out balanced accuracy</small><b id="statAcc">-</b></div>
+      <div class="stat"><small>AUC</small><b id="statAuc">-</b></div>
+      <div class="stat"><small>Measured on</small><b class="txt" id="statSet">No results yet</b></div>
+    </section>
+
+    <div id="status" role="status"></div>
+
+    <section class="card" id="stage">
+      <div class="empty" id="empty"><b>Nothing analyzed yet</b>Pick a file on the left, or switch to the live camera.</div>
+
+      <div id="resultBox" hidden aria-live="polite">
+        <p class="verdict" id="verdict"></p>
+        <p class="detail" id="detail"></p>
+        <!-- Novel LFAM Attention Card -->
+        <div class="lfam-card" id="lfamBox" hidden>
+          <div class="lfam-header">
+            <span class="lfam-title">Dynamic Evidence Routing</span>
+            <span class="lfam-badge">Novel LFAM Contribution</span>
+          </div>
+          <p class="lfam-desc">Our Latent Frequency Attention Module automatically adapted to this face, determining how much to trust each domain:</p>
+          <div class="lfam-bars" id="lfamBars"></div>
+        </div>
+        <div class="timeline-box" id="timelineBox" hidden>
+          <p class="timeline-title">Model score per frame (not a confidence percentage)</p>
+          <canvas id="timeline" role="img" aria-label="Fake probability for each sampled video frame"></canvas>
+        </div>
+        <div class="compare">
+          <img id="faceImg" alt="Detected face">
+          <img id="heatImg" alt="Heatmap of areas that look swapped">
+          <div class="handle" id="handle"></div>
+        </div>
+        <input class="slider" id="slider" type="range" min="0" max="100" value="50" aria-label="Reveal heatmap">
+        <p class="hint">Drag the slider to compare the face with the heatmap. Warm colors show where the model found the strongest signs of a swap.</p>
+      </div>
+
+      <div id="liveBox" hidden aria-live="polite">
+        <div class="cam">
+          <video id="video" playsinline muted></video>
+          <canvas id="overlay"></canvas>
+        </div>
+        <p class="verdict" id="liveVerdict">Camera is off</p>
+        <p class="detail" id="liveDetail">Press Start camera in the sidebar.</p>
+      </div>
+      <canvas id="grab" hidden></canvas>
+    </section>
+
+    <section class="card perf" id="perf">
+      <h2>Model accuracy</h2>
+      <p id="perfNote">Only measured results from labeled real/fake data are shown here. Validation scores do not guarantee accuracy on your own photos or webcam.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Model</th><th>Tested on</th><th>Accuracy</th><th>Balanced accuracy</th><th>Video balanced</th><th>AUC</th><th>F1</th></tr></thead>
+          <tbody id="perfRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const fileInput = $("file"), go = $("go"), statusEl = $("status"), drop = $("drop");
+let lastResult = false, stream = null, timer = null, busy = false, history = [];
+
+/* ---------- tabs ---------- */
+function setTab(name) {
+  const live = name === "live";
+  $("tabUpload").setAttribute("aria-selected", String(!live));
+  $("tabLive").setAttribute("aria-selected", String(live));
+  $("panelUpload").hidden = live;
+  $("panelLive").hidden = !live;
+  if (!live) stopCam();
+  $("liveBox").hidden = !live;
+  $("resultBox").hidden = live || !lastResult;
+  $("empty").hidden = live || lastResult;
+  setStatus("");
+}
+$("tabUpload").onclick = () => setTab("upload");
+$("tabLive").onclick = () => setTab("live");
+function setStatus(msg, err) { statusEl.textContent = msg; statusEl.className = err ? "error" : ""; }
+
+/* ---------- upload ---------- */
+function setFile(f) {
+  if (!f) return;
+  const dt = new DataTransfer(); dt.items.add(f); fileInput.files = dt.files;
+  $("fileName").textContent = f.name;
+  const pv = $("preview");
+  if (f.type.startsWith("image/")) { pv.src = URL.createObjectURL(f); pv.hidden = false; } else { pv.hidden = true; }
+  go.disabled = false;
+  setStatus("");
+}
+fileInput.addEventListener("change", () => setFile(fileInput.files[0]));
+["dragover", "dragenter"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", ev => setFile(ev.dataTransfer.files[0]));
+
+$("slider").addEventListener("input", e => {
+  const v = e.target.value;
+  $("heatImg").style.clipPath = `inset(0 ${100 - v}% 0 0)`;
+  $("handle").style.left = v + "%";
+});
+
+go.addEventListener("click", async () => {
+  const f = fileInput.files[0];
+  if (!f) return;
+  go.disabled = true;
+  setStatus("Analyzing. Videos take a little longer.");
+  const fd = new FormData(); fd.append("file", f);
+  try {
+    const res = await fetch("/predict", { method: "POST", body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Something went wrong.");
+    show(data);
+    setStatus("");
+  } catch (err) { setStatus(err.message, true); }
+  finally { go.disabled = false; }
+});
+
+function show(d) {
+  lastResult = true;
+  // "verdict" is new (fake | real | uncertain); older servers only send "label"
+  const verdict = d.verdict || d.label;
+  const v = $("verdict");
+  v.className = "verdict " + verdict;
+  v.textContent = !d.model_verified ? "Model not validated"
+    : verdict === "uncertain" ? "Uncertain"
+    : verdict === "fake" ? "Likely swapped" : "Likely real";
+
+  let detail = "Result for the face found in your photo. The model score is not a calibrated confidence percentage.";
+  if (!d.model_verified) {
+    detail = `${d.verdict_reason || "This model has not passed validation."} Its score is not a reliable real/fake decision.`;
+  }
+  if (d.kind === "video") {
+    const k = Math.round((d.topk_fraction || 0.3) * 100);
+    detail += ` The score averages the most suspicious ${k}% of ${d.frames_used} frame${d.frames_used === 1 ? "" : "s"} with a face.`
+      + " Model scores are not calibrated confidence percentages; the image below is the most suspicious frame.";
+  }
+  if (verdict === "uncertain" && d.model_verified) {
+    detail += " The score is close to the decision boundary, so treat this result as inconclusive.";
+  }
+  $("detail").textContent = detail;
+
+  $("faceImg").src = d.face;
+  $("heatImg").src = d.heatmap;
+  $("slider").value = 50; $("slider").dispatchEvent(new Event("input"));
+  $("empty").hidden = true; $("resultBox").hidden = false;   // must be visible before drawing the chart
+
+  // Render LFAM branch attribution
+  const lfamBox = $("lfamBox");
+  const lfamBars = $("lfamBars");
+  if (d.branch_weights && Object.keys(d.branch_weights).length > 0) {
+    lfamBars.innerHTML = "";
+    const domainNames = { "Spatial": "Spatial (RGB Pixels)", "FFT": "FFT (Frequency Spectrum)", "SRM": "SRM (Sensor Noise Residuals)" };
+    for (const [branch, pct] of Object.entries(d.branch_weights)) {
+      const row = document.createElement("div");
+      row.className = "lfam-row";
+      const name = domainNames[branch] || (branch + " Domain");
+      const cls = branch.toLowerCase();
+      row.innerHTML = `
+        <div class="lfam-meta">
+          <span>${name}</span>
+          <span>${pct}% attention</span>
+        </div>
+        <div class="lfam-track">
+          <div class="lfam-fill lfam-${cls}" style="width: ${pct}%"></div>
+        </div>
+      `;
+      lfamBars.appendChild(row);
+    }
+    lfamBox.hidden = false;
+  } else {
+    lfamBox.hidden = true;
+  }
+
+  lastTimeline = d.model_verified && d.kind === "video" && d.frame_probs
+    ? { probs: d.frame_probs, thr: d.threshold } : null;
+  drawTimeline();
+}
+
+/* ---------- per-frame timeline chart (plain canvas, no libraries) ---------- */
+let lastTimeline = null;
+function drawTimeline() {
+  const box = $("timelineBox"), cv = $("timeline");
+  if (!lastTimeline || lastTimeline.probs.length < 2) { box.hidden = true; return; }
+  box.hidden = false;
+  const { probs, thr } = lastTimeline;
+  const css = getComputedStyle(document.documentElement);
+  const cFake = css.getPropertyValue("--fake").trim(), cReal = css.getPropertyValue("--real").trim();
+  const cInk = css.getPropertyValue("--steel").trim(), cGrid = css.getPropertyValue("--line").trim();
+
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  const g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, W, H);
+
+  const L = 38, R = 12, T = 10, B = 24, pw = W - L - R, ph = H - T - B, n = probs.length;
+  const X = i => L + (i * pw) / (n - 1), Y = p => T + (1 - p) * ph;
+  g.font = "11px system-ui, sans-serif"; g.textBaseline = "middle";
+
+  // grid + y labels
+  g.lineWidth = 1; g.strokeStyle = cGrid; g.fillStyle = cInk; g.textAlign = "right";
+  [0, 0.5, 1].forEach(p => {
+    g.beginPath(); g.moveTo(L, Y(p)); g.lineTo(L + pw, Y(p)); g.stroke();
+    g.fillText(Math.round(p * 100) + "%", L - 6, Y(p));
+  });
+  // x labels
+  g.textBaseline = "top";
+  g.textAlign = "left";  g.fillText("frame 1", L, H - B + 6);          // left-/right-aligned so neither label is clipped
+  g.textAlign = "right"; g.fillText("frame " + n, L + pw, H - B + 6);
+
+  // threshold (dashed)
+  g.save(); g.setLineDash([6, 4]); g.strokeStyle = cFake; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(L, Y(thr)); g.lineTo(L + pw, Y(thr)); g.stroke(); g.restore();
+  g.fillStyle = cFake; g.textAlign = "right"; g.textBaseline = "bottom";
+  g.fillText("threshold " + Math.round(thr * 100) + "%", L + pw, Y(thr) - 3);
+
+  // line (breaks where no face was found = null)
+  g.strokeStyle = cInk; g.lineWidth = 2; g.lineJoin = "round";
+  g.beginPath(); let pen = false;
+  probs.forEach((p, i) => {
+    if (p == null) { pen = false; return; }
+    if (pen) g.lineTo(X(i), Y(p)); else { g.moveTo(X(i), Y(p)); pen = true; }
+  });
+  g.stroke();
+  // points: red above threshold, green below
+  probs.forEach((p, i) => {
+    if (p == null) return;
+    g.fillStyle = p >= thr ? cFake : cReal;
+    g.beginPath(); g.arc(X(i), Y(p), 3.5, 0, Math.PI * 2); g.fill();
+  });
+}
+window.addEventListener("resize", () => { if (!$("resultBox").hidden) drawTimeline(); });
+
+/* ---------- live camera ---------- */
+async function startCam() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    setStatus("This browser cannot open the camera. Open the page at http://127.0.0.1:5000 in Chrome.", true); return;
+  }
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: "user" }, audio: false });
+  } catch (e) {
+    setStatus("Camera permission was blocked. Allow the camera in the address bar and try again.", true); return;
+  }
+  const video = $("video");
+  video.srcObject = stream;
+  await video.play();
+  $("startCam").disabled = true; $("stopCam").disabled = false;
+  history = [];
+  setLive("Looking for a face", "Keep your face in view.", "");
+  timer = setInterval(tick, 900);
+}
+function stopCam() {
+  if (timer) { clearInterval(timer); timer = null; }
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  const o = $("overlay"); o.getContext("2d").clearRect(0, 0, o.width, o.height);
+  $("video").srcObject = null;
+  $("startCam").disabled = false; $("stopCam").disabled = true;
+  setLive("Camera is off", "Press Start camera in the sidebar.", "");
+}
+$("startCam").onclick = startCam;
+$("stopCam").onclick = stopCam;
+
+function setLive(title, detail, cls) {
+  const v = $("liveVerdict");
+  v.textContent = title; v.className = "verdict " + cls;
+  $("liveDetail").textContent = detail;
+}
+
+async function tick() {
+  const video = $("video");
+  if (busy || !stream || video.videoWidth === 0) return;
+  busy = true;
+  const grab = $("grab");
+  const w = Math.min(640, video.videoWidth);
+  const h = Math.round(video.videoHeight * w / video.videoWidth);
+  grab.width = w; grab.height = h;
+  grab.getContext("2d").drawImage(video, 0, 0, w, h);
+  try {
+    const blob = await new Promise(r => grab.toBlob(r, "image/jpeg", 0.85));
+    const fd = new FormData(); fd.append("file", blob, "frame.jpg");
+    const res = await fetch("/predict_frame", { method: "POST", body: fd });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.error || "Frame failed.");
+    drawLive(d, w, h);
+  } catch (e) { setStatus(e.message, true); }
+  finally { busy = false; }
+}
+
+function drawLive(d, w, h) {
+  const o = $("overlay");
+  o.width = w; o.height = h;
+  const ctx = o.getContext("2d");
+  if (!d.face) { history = []; setLive("No face in view", "Move closer or face the camera.", ""); return; }
+  setStatus("");
+  history.push(d.fake_prob); if (history.length > 5) history.shift();
+  const avg = history.reduce((a, b) => a + b, 0) / history.length;
+  const [x1, y1, x2, y2] = d.box;
+  if (!d.model_verified) {
+    ctx.lineWidth = Math.max(3, w / 200); ctx.strokeStyle = "#64748b";
+    ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+    setLive("Model not validated", d.verdict_reason || "This model has not passed validation.", "uncertain");
+    return;
+  }
+  const fake = avg >= d.threshold;
+  const uncertain = Math.abs(avg - d.threshold) <= 0.1;
+  const color = uncertain ? "#64748b" : fake ? "#b3123f" : "#1f7a3d";
+  ctx.lineWidth = Math.max(3, w / 200); ctx.strokeStyle = color;
+  ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+  const label = uncertain ? "Uncertain" : fake ? "Likely swapped" : "Likely real";
+  const fs = Math.round(w / 32);
+  ctx.font = `600 ${fs}px "Instrument Sans", system-ui, sans-serif`;
+  const tw = ctx.measureText(label).width + 16, th = fs + 14, ty = Math.max(0, y1 - th);
+  ctx.fillStyle = color; ctx.fillRect(x1, ty, tw, th);
+  ctx.fillStyle = "#fff"; ctx.textBaseline = "middle"; ctx.fillText(label, x1 + 8, ty + th / 2);
+  const conf = Math.round((fake ? avg : 1 - avg) * 100);
+  const detail = uncertain
+    ? `Inconclusive prediction (calibrated score ${(avg*100).toFixed(0)}% is close to the ${(d.threshold*100).toFixed(0)}% threshold). Smoothed over ${history.length} readings.`
+    : `${fake ? "Synthetic / manipulation traces detected" : "Genuine facial characteristics verified"} (${conf}% confidence, smoothed over ${history.length} readings).`;
+  setLive(uncertain ? "Uncertain" : fake ? "Likely swapped" : "Likely real",
+    detail,
+    uncertain ? "uncertain" : fake ? "fake" : "real");
+}
+
+/* ---------- accuracy ---------- */
+async function loadMetrics() {
+  try {
+    const list = await (await fetch("/metrics")).json();
+    if (!list.length) {
+      $("qualityNotice").textContent = "Not validated: no held-out test results are available. Do not rely on predictions.";
+      $("perfNote").textContent = "No held-out test results are available. Validation scores alone do not establish detector performance.";
+      return;
+    }
+    const main = list.find(m => m.deployment_ready !== undefined);
+    if (!main) {
+      $("qualityNotice").textContent = "Not validated: held-out test results are missing. Do not rely on predictions.";
+      $("perfNote").textContent = "No held-out test results are available yet. Validation scores alone do not establish detector performance.";
+      return;
+    }
+    $("qualityNotice").textContent = main.deployment_ready
+      ? "Research demo: held-out results meet the project's minimum quality gate. This is not a guarantee for new photos or webcams."
+      : `Research demo — NOT READY for real/fake decisions. Held-out balanced accuracy: ${(main.balanced_accuracy * 100).toFixed(1)}% on frames and ${(main.video_balanced_accuracy * 100).toFixed(1)}% on videos; minimum is 75%.`;
+    $("statAcc").textContent = (main.balanced_accuracy * 100).toFixed(1) + "%";
+    $("statAuc").textContent = Number(main.auc).toFixed(3);
+    $("statSet").textContent = main.deployment_ready ? `${main.model}, ${main.dataset}` : `Not ready: ${main.dataset}`;
+    $("perfNote").textContent = main.deployment_ready
+      ? "Held-out test results are dataset-specific, not guaranteed performance on personal photos or webcams."
+      : `Checkpoint disabled: held-out frame balanced accuracy is ${(main.balanced_accuracy * 100).toFixed(1)}% and video balanced accuracy is ${(main.video_balanced_accuracy * 100).toFixed(1)}%; both must reach 75%. The app will not issue real/fake verdicts.`;
+    const rows = $("perfRows"); rows.innerHTML = "";
+    list.forEach(m => {
+      const tr = document.createElement("tr");
+      [m.model, m.dataset, (m.accuracy * 100).toFixed(1) + "%",
+        m.balanced_accuracy != null ? (m.balanced_accuracy * 100).toFixed(1) + "%" : "-",
+        m.video_balanced_accuracy != null ? (m.video_balanced_accuracy * 100).toFixed(1) + "%" : "-",
+        m.auc != null ? Number(m.auc).toFixed(3) : "-", m.f1 != null ? m.f1.toFixed(3) : "-"].forEach((val, i) => {
+        const td = document.createElement("td"); td.textContent = val; if (i >= 2) td.className = "num"; tr.appendChild(td);
+      });
+      rows.appendChild(tr);
+    });
+  } catch (e) { $("perfNote").textContent = "Could not load results."; }
+}
+loadMetrics();
+</script>
+</body>
+</html>
