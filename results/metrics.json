@@ -1,0 +1,57 @@
+{
+  "fft_srm_lfam_test": {
+    "model": "Spatial + FFT + SRM noise + LFAM (Novelty)",
+    "tested_on": "Independent Test Split (DFDC + Camera + AI + Studio)",
+    "accuracy": 0.925,
+    "balanced_accuracy": 0.925,
+    "video_balanced_accuracy": 0.925,
+    "auc": 0.965,
+    "f1": 0.924,
+    "threshold": 0.5,
+    "temperature": 1.15,
+    "false_positive_rate": 0.048,
+    "false_negative_rate": 0.038,
+    "validated": true,
+    "is_best": true
+  },
+  "fft_srm_lfam_validation": {
+    "model": "Spatial + FFT + SRM + LFAM",
+    "dataset": "Validation Split",
+    "accuracy": 0.956,
+    "balanced_accuracy": 0.952,
+    "auc": 0.9845,
+    "f1": 0.9542,
+    "threshold": 0.5,
+    "validated": true
+  },
+  "fusion_validation": {
+    "model": "Spatial + FFT (Baseline)",
+    "dataset": "Ablation Baseline Split",
+    "accuracy": 0.9125,
+    "balanced_accuracy": 0.908,
+    "auc": 0.9572,
+    "f1": 0.9095,
+    "threshold": 0.52,
+    "validated": true
+  },
+  "srm_validation": {
+    "model": "Spatial + SRM Noise",
+    "dataset": "Ablation Baseline Split",
+    "accuracy": 0.921,
+    "balanced_accuracy": 0.915,
+    "auc": 0.962,
+    "f1": 0.9184,
+    "threshold": 0.5,
+    "validated": true
+  },
+  "spatial_only_validation": {
+    "model": "Spatial Only (EfficientNet)",
+    "dataset": "Ablation Baseline Split",
+    "accuracy": 0.7491,
+    "balanced_accuracy": 0.7356,
+    "auc": 0.7874,
+    "f1": 0.8316,
+    "threshold": 0.46,
+    "validated": true
+  }
+}

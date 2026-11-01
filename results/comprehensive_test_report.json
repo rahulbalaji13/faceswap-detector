@@ -1,0 +1,1096 @@
+{
+  "timestamp": "2026-11-01 16:02:12",
+  "model_branch": "fft+srm",
+  "threshold": 0.42398248910903935,
+  "temperature": 1.1390842199325562,
+  "input_size": 128,
+  "overall_accuracy": 0.5385,
+  "total_samples": 65,
+  "total_correct": 35,
+  "groups": {
+    "group_a_genuine": {
+      "group_name": "Group A: Genuine Images",
+      "expected": "real",
+      "total": 23,
+      "correct": 4,
+      "accuracy": 0.1739,
+      "uncertain": 11,
+      "uncertain_rate": 0.4783,
+      "samples": [
+        {
+          "file": "sample_real.jpg",
+          "path": "test_samples\\sample_real.jpg",
+          "prob_fake": 0.6329,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9893598556518555,
+            "FFT": 0.0028848769143223763,
+            "SRM": 0.00775529770180583
+          }
+        },
+        {
+          "file": "user_real_face.jpg",
+          "path": "test_samples\\user_real_face.jpg",
+          "prob_fake": 0.1502,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "real",
+          "expected": "real",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9958698153495789,
+            "FFT": 0.002012362703680992,
+            "SRM": 0.0021177674643695354
+          }
+        },
+        {
+          "file": "media_1793463397767_a02d8bce.jpg",
+          "path": "C:\\Users\\rahul\\.gemini\\antigravity\\brain\\07027b44-7a58-4de6-a944-e9d3913eaa41\\.user_uploaded\\media_1793463397767_a02d8bce.jpg",
+          "prob_fake": 0.1423,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "real",
+          "expected": "real",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9959476590156555,
+            "FFT": 0.0019678310491144657,
+            "SRM": 0.0020844554528594017
+          }
+        },
+        {
+          "file": "atkdltyyen_0.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_0.png",
+          "prob_fake": 0.3861,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": true,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9935961961746216,
+            "FFT": 0.0028197108767926693,
+            "SRM": 0.0035840861964970827
+          }
+        },
+        {
+          "file": "atkdltyyen_1.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_1.png",
+          "prob_fake": 0.4261,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9943696856498718,
+            "FFT": 0.002714007394388318,
+            "SRM": 0.0029162666760385036
+          }
+        },
+        {
+          "file": "atkdltyyen_2.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_2.png",
+          "prob_fake": 0.4352,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9934565424919128,
+            "FFT": 0.0024527062196284533,
+            "SRM": 0.004090745467692614
+          }
+        },
+        {
+          "file": "atkdltyyen_3.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_3.png",
+          "prob_fake": 0.4421,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.995708703994751,
+            "FFT": 0.002030855044722557,
+            "SRM": 0.0022604537662118673
+          }
+        },
+        {
+          "file": "atkdltyyen_4.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_4.png",
+          "prob_fake": 0.523,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9931743741035461,
+            "FFT": 0.0030088683124631643,
+            "SRM": 0.0038166651502251625
+          }
+        },
+        {
+          "file": "atkdltyyen_5.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_5.png",
+          "prob_fake": 0.4916,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9938860535621643,
+            "FFT": 0.0027765033300966024,
+            "SRM": 0.003337474074214697
+          }
+        },
+        {
+          "file": "atkdltyyen_6.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_6.png",
+          "prob_fake": 0.4413,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.994358479976654,
+            "FFT": 0.0020992979407310486,
+            "SRM": 0.003542205784469843
+          }
+        },
+        {
+          "file": "atkdltyyen_7.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_7.png",
+          "prob_fake": 0.535,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.99399334192276,
+            "FFT": 0.002072499832138419,
+            "SRM": 0.003934199921786785
+          }
+        },
+        {
+          "file": "atkdltyyen_8.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_8.png",
+          "prob_fake": 0.4612,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9944955706596375,
+            "FFT": 0.0026262968312948942,
+            "SRM": 0.002878173254430294
+          }
+        },
+        {
+          "file": "atkdltyyen_9.png",
+          "path": "data_balanced\\test\\real\\atkdltyyen_9.png",
+          "prob_fake": 0.463,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9932124614715576,
+            "FFT": 0.0025601815432310104,
+            "SRM": 0.004227336496114731
+          }
+        },
+        {
+          "file": "aybumesmpk_0.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_0.png",
+          "prob_fake": 0.719,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9919060468673706,
+            "FFT": 0.0032178587280213833,
+            "SRM": 0.004876066464930773
+          }
+        },
+        {
+          "file": "aybumesmpk_1.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_1.png",
+          "prob_fake": 0.7045,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9948280453681946,
+            "FFT": 0.002125462284311652,
+            "SRM": 0.0030465666204690933
+          }
+        },
+        {
+          "file": "aybumesmpk_2.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_2.png",
+          "prob_fake": 0.6871,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9948622584342957,
+            "FFT": 0.0022877028677612543,
+            "SRM": 0.0028499446343630552
+          }
+        },
+        {
+          "file": "aybumesmpk_3.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_3.png",
+          "prob_fake": 0.5618,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9952822327613831,
+            "FFT": 0.0015864692395552993,
+            "SRM": 0.003131280653178692
+          }
+        },
+        {
+          "file": "aybumesmpk_4.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_4.png",
+          "prob_fake": 0.585,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9927060008049011,
+            "FFT": 0.003379709320142865,
+            "SRM": 0.003914299886673689
+          }
+        },
+        {
+          "file": "aybumesmpk_5.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_5.png",
+          "prob_fake": 0.6998,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9940452575683594,
+            "FFT": 0.0019132117740809917,
+            "SRM": 0.004041570704430342
+          }
+        },
+        {
+          "file": "aybumesmpk_6.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_6.png",
+          "prob_fake": 0.5521,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9947615265846252,
+            "FFT": 0.002223680727183819,
+            "SRM": 0.0030147230718284845
+          }
+        },
+        {
+          "file": "aybumesmpk_7.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_7.png",
+          "prob_fake": 0.566,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9940874576568604,
+            "FFT": 0.002481792587786913,
+            "SRM": 0.0034307530149817467
+          }
+        },
+        {
+          "file": "aybumesmpk_8.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_8.png",
+          "prob_fake": 0.4903,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9949041604995728,
+            "FFT": 0.0019650121685117483,
+            "SRM": 0.003130834549665451
+          }
+        },
+        {
+          "file": "aybumesmpk_9.png",
+          "path": "data_balanced\\test\\real\\aybumesmpk_9.png",
+          "prob_fake": 0.3466,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": true,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9949753284454346,
+            "FFT": 0.002023333916440606,
+            "SRM": 0.0030012945644557476
+          }
+        }
+      ]
+    },
+    "group_b_ai_generated": {
+      "group_name": "Group B: AI-Generated Images",
+      "expected": "fake",
+      "total": 15,
+      "correct": 14,
+      "accuracy": 0.9333,
+      "uncertain": 2,
+      "uncertain_rate": 0.1333,
+      "samples": [
+        {
+          "file": "ai_artifact_test_0000.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0000.png",
+          "prob_fake": 0.504,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9957064986228943,
+            "FFT": 0.0017681714380159974,
+            "SRM": 0.0025254550855606794
+          }
+        },
+        {
+          "file": "ai_artifact_test_0001.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0001.png",
+          "prob_fake": 0.6825,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9937206506729126,
+            "FFT": 0.0022184113040566444,
+            "SRM": 0.004060977138578892
+          }
+        },
+        {
+          "file": "ai_artifact_test_0002.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0002.png",
+          "prob_fake": 0.7731,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9917834997177124,
+            "FFT": 0.002744645345956087,
+            "SRM": 0.0054719457402825356
+          }
+        },
+        {
+          "file": "ai_artifact_test_0003.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0003.png",
+          "prob_fake": 0.6907,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9951069355010986,
+            "FFT": 0.0018955107079818845,
+            "SRM": 0.0029976079240441322
+          }
+        },
+        {
+          "file": "ai_artifact_test_0004.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0004.png",
+          "prob_fake": 0.6321,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9965049028396606,
+            "FFT": 0.0014627856435254216,
+            "SRM": 0.0020323414355516434
+          }
+        },
+        {
+          "file": "ai_artifact_test_0005.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0005.png",
+          "prob_fake": 0.423,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9966790676116943,
+            "FFT": 0.0014636077685281634,
+            "SRM": 0.0018573460401967168
+          }
+        },
+        {
+          "file": "ai_artifact_test_0006.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0006.png",
+          "prob_fake": 0.526,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9965215921401978,
+            "FFT": 0.001278546522371471,
+            "SRM": 0.00219987565651536
+          }
+        },
+        {
+          "file": "ai_artifact_test_0007.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0007.png",
+          "prob_fake": 0.6602,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9645606279373169,
+            "FFT": 0.014186311513185501,
+            "SRM": 0.021253060549497604
+          }
+        },
+        {
+          "file": "ai_artifact_test_0008.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0008.png",
+          "prob_fake": 0.715,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9707899689674377,
+            "FFT": 0.009125713258981705,
+            "SRM": 0.020084381103515625
+          }
+        },
+        {
+          "file": "ai_artifact_test_0009.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0009.png",
+          "prob_fake": 0.829,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9937489032745361,
+            "FFT": 0.0020132821518927813,
+            "SRM": 0.004237775690853596
+          }
+        },
+        {
+          "file": "ai_artifact_test_0010.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0010.png",
+          "prob_fake": 0.7904,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9945912957191467,
+            "FFT": 0.0019024404464289546,
+            "SRM": 0.003506208537146449
+          }
+        },
+        {
+          "file": "ai_artifact_test_0011.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0011.png",
+          "prob_fake": 0.8223,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9952281713485718,
+            "FFT": 0.001771998591721058,
+            "SRM": 0.002999877789989114
+          }
+        },
+        {
+          "file": "ai_artifact_test_0012.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0012.png",
+          "prob_fake": 0.7166,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.996148943901062,
+            "FFT": 0.0014122758293524384,
+            "SRM": 0.0024388290476053953
+          }
+        },
+        {
+          "file": "ai_artifact_test_0013.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0013.png",
+          "prob_fake": 0.5607,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.972186803817749,
+            "FFT": 0.011998494155704975,
+            "SRM": 0.01581469550728798
+          }
+        },
+        {
+          "file": "ai_artifact_test_0014.png",
+          "path": "data_balanced\\test\\fake\\ai_artifact_test_0014.png",
+          "prob_fake": 0.6744,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9835512042045593,
+            "FFT": 0.005990470293909311,
+            "SRM": 0.010458281263709068
+          }
+        }
+      ]
+    },
+    "group_c_manipulated": {
+      "group_name": "Group C: Manipulated & Face-Swapped Images",
+      "expected": "fake",
+      "total": 22,
+      "correct": 17,
+      "accuracy": 0.7727,
+      "uncertain": 6,
+      "uncertain_rate": 0.2727,
+      "samples": [
+        {
+          "file": "sample_fake.jpg",
+          "path": "test_samples\\sample_fake.jpg",
+          "prob_fake": 0.7976,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9787954688072205,
+            "FFT": 0.006780519150197506,
+            "SRM": 0.014424021355807781
+          }
+        },
+        {
+          "file": "user_swapped_face.jpg",
+          "path": "test_samples\\user_swapped_face.jpg",
+          "prob_fake": 0.0964,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "real",
+          "expected": "fake",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9968270659446716,
+            "FFT": 0.0014601568691432476,
+            "SRM": 0.0017126896418631077
+          }
+        },
+        {
+          "file": "acxnxvbsxk_5.png",
+          "path": "data_balanced\\test\\fake\\acxnxvbsxk_5.png",
+          "prob_fake": 0.5405,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9947935938835144,
+            "FFT": 0.002018013969063759,
+            "SRM": 0.0031884266063570976
+          }
+        },
+        {
+          "file": "aknbdpmgua_4.png",
+          "path": "data_balanced\\test\\fake\\aknbdpmgua_4.png",
+          "prob_fake": 0.665,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9920480847358704,
+            "FFT": 0.0032298159785568714,
+            "SRM": 0.004722023848444223
+          }
+        },
+        {
+          "file": "aknbdpmgua_6.png",
+          "path": "data_balanced\\test\\fake\\aknbdpmgua_6.png",
+          "prob_fake": 0.6504,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9957808256149292,
+            "FFT": 0.0017239160370081663,
+            "SRM": 0.0024952657986432314
+          }
+        },
+        {
+          "file": "alninxcyhg_3.png",
+          "path": "data_balanced\\test\\fake\\alninxcyhg_3.png",
+          "prob_fake": 0.6772,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9934846758842468,
+            "FFT": 0.002216220600530505,
+            "SRM": 0.004299161955714226
+          }
+        },
+        {
+          "file": "alninxcyhg_9.png",
+          "path": "data_balanced\\test\\fake\\alninxcyhg_9.png",
+          "prob_fake": 0.594,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9937034249305725,
+            "FFT": 0.002204304561018944,
+            "SRM": 0.004092250019311905
+          }
+        },
+        {
+          "file": "arkroixhey_3.png",
+          "path": "data_balanced\\test\\fake\\arkroixhey_3.png",
+          "prob_fake": 0.5741,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9959172606468201,
+            "FFT": 0.0016602767864242196,
+            "SRM": 0.0024223646614700556
+          }
+        },
+        {
+          "file": "arkroixhey_4.png",
+          "path": "data_balanced\\test\\fake\\arkroixhey_4.png",
+          "prob_fake": 0.3573,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9964413046836853,
+            "FFT": 0.0016236186493188143,
+            "SRM": 0.0019350469810888171
+          }
+        },
+        {
+          "file": "arkroixhey_9.png",
+          "path": "data_balanced\\test\\fake\\arkroixhey_9.png",
+          "prob_fake": 0.4619,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.995884120464325,
+            "FFT": 0.0014715391444042325,
+            "SRM": 0.002644374966621399
+          }
+        },
+        {
+          "file": "aufmsmnoye_2.png",
+          "path": "data_balanced\\test\\fake\\aufmsmnoye_2.png",
+          "prob_fake": 0.4155,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9955588579177856,
+            "FFT": 0.0021291039884090424,
+            "SRM": 0.0023120464757084846
+          }
+        },
+        {
+          "file": "aufmsmnoye_4.png",
+          "path": "data_balanced\\test\\fake\\aufmsmnoye_4.png",
+          "prob_fake": 0.5923,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.995835542678833,
+            "FFT": 0.001616384251974523,
+            "SRM": 0.002548089250922203
+          }
+        },
+        {
+          "file": "aufmsmnoye_6.png",
+          "path": "data_balanced\\test\\fake\\aufmsmnoye_6.png",
+          "prob_fake": 0.4217,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.995461642742157,
+            "FFT": 0.002029524650424719,
+            "SRM": 0.0025087865069508553
+          }
+        },
+        {
+          "file": "aufmsmnoye_8.png",
+          "path": "data_balanced\\test\\fake\\aufmsmnoye_8.png",
+          "prob_fake": 0.3503,
+          "threshold": 0.424,
+          "raw_label": "real",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9956662654876709,
+            "FFT": 0.002215302549302578,
+            "SRM": 0.002118446631357074
+          }
+        },
+        {
+          "file": "azpuxunqyo_3.png",
+          "path": "data_balanced\\test\\fake\\azpuxunqyo_3.png",
+          "prob_fake": 0.7564,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9940133690834045,
+            "FFT": 0.002584528410807252,
+            "SRM": 0.0034021667670458555
+          }
+        },
+        {
+          "file": "azpuxunqyo_8.png",
+          "path": "data_balanced\\test\\fake\\azpuxunqyo_8.png",
+          "prob_fake": 0.7771,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9947027564048767,
+            "FFT": 0.0020114483777433634,
+            "SRM": 0.0032857542391866446
+          }
+        },
+        {
+          "file": "azpuxunqyo_9.png",
+          "path": "data_balanced\\test\\fake\\azpuxunqyo_9.png",
+          "prob_fake": 0.4518,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9949912428855896,
+            "FFT": 0.0022575275506824255,
+            "SRM": 0.0027512044180184603
+          }
+        },
+        {
+          "file": "bctvsmddgq_3.png",
+          "path": "data_balanced\\test\\fake\\bctvsmddgq_3.png",
+          "prob_fake": 0.7152,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9955275654792786,
+            "FFT": 0.001913444371894002,
+            "SRM": 0.0025590374134480953
+          }
+        },
+        {
+          "file": "bctvsmddgq_4.png",
+          "path": "data_balanced\\test\\fake\\bctvsmddgq_4.png",
+          "prob_fake": 0.5334,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9969767332077026,
+            "FFT": 0.0013513125013560057,
+            "SRM": 0.0016719792038202286
+          }
+        },
+        {
+          "file": "bdxuhamuqx_7.png",
+          "path": "data_balanced\\test\\fake\\bdxuhamuqx_7.png",
+          "prob_fake": 0.5386,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9932820796966553,
+            "FFT": 0.0022778380662202835,
+            "SRM": 0.004440107848495245
+          }
+        },
+        {
+          "file": "bghphrsfxf_2.png",
+          "path": "data_balanced\\test\\fake\\bghphrsfxf_2.png",
+          "prob_fake": 0.8063,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.99224853515625,
+            "FFT": 0.0025572124868631363,
+            "SRM": 0.005194215103983879
+          }
+        },
+        {
+          "file": "bghphrsfxf_4.png",
+          "path": "data_balanced\\test\\fake\\bghphrsfxf_4.png",
+          "prob_fake": 0.8035,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "fake",
+          "is_correct": true,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9943884015083313,
+            "FFT": 0.002112802118062973,
+            "SRM": 0.0034988736733794212
+          }
+        }
+      ]
+    },
+    "group_d_robustness": {
+      "group_name": "Group D: Robustness & Edge Cases",
+      "expected": "real",
+      "total": 5,
+      "correct": 0,
+      "accuracy": 0.0,
+      "uncertain": 1,
+      "uncertain_rate": 0.2,
+      "samples": [
+        {
+          "file": "edge_heavy_jpeg.jpg",
+          "path": "test_samples\\robustness\\edge_heavy_jpeg.jpg",
+          "prob_fake": 0.5509,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.994085431098938,
+            "FFT": 0.0024664190132170916,
+            "SRM": 0.0034481731709092855
+          }
+        },
+        {
+          "file": "edge_blur.jpg",
+          "path": "test_samples\\robustness\\edge_blur.jpg",
+          "prob_fake": 0.6986,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9976004958152771,
+            "FFT": 0.0010685061570256948,
+            "SRM": 0.0013309535570442677
+          }
+        },
+        {
+          "file": "edge_low_light.jpg",
+          "path": "test_samples\\robustness\\edge_low_light.jpg",
+          "prob_fake": 0.5028,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "uncertain",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": true,
+          "lfam_weights": {
+            "Spatial": 0.9915939569473267,
+            "FFT": 0.0033628405071794987,
+            "SRM": 0.005043226759880781
+          }
+        },
+        {
+          "file": "edge_high_exposure.jpg",
+          "path": "test_samples\\robustness\\edge_high_exposure.jpg",
+          "prob_fake": 0.7317,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9928722381591797,
+            "FFT": 0.0028805346228182316,
+            "SRM": 0.004247184842824936
+          }
+        },
+        {
+          "file": "edge_lowres_upsampled.jpg",
+          "path": "test_samples\\robustness\\edge_lowres_upsampled.jpg",
+          "prob_fake": 0.5823,
+          "threshold": 0.424,
+          "raw_label": "fake",
+          "verdict": "fake",
+          "expected": "real",
+          "is_correct": false,
+          "is_uncertain": false,
+          "lfam_weights": {
+            "Spatial": 0.9972602128982544,
+            "FFT": 0.001246391562744975,
+            "SRM": 0.001493349438533187
+          }
+        }
+      ]
+    }
+  }
+}
