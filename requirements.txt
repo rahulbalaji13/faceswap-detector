@@ -1,0 +1,12 @@
+torch>=2.0
+torchvision>=0.15
+timm>=0.9
+opencv-python>=4.8
+numpy
+pillow
+scikit-learn
+matplotlib
+flask>=3.0
+tqdm
+# Optional, better face detector (falls back to OpenCV Haar if missing):
+# pip install facenet-pytorch --no-deps
